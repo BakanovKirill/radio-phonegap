@@ -1,11 +1,14 @@
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Radio - eTVnet</title>
   <meta name="description" content="eTVnet радио онлайн">
   
   <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, maximum-scale=0.6, target-densitydpi=device-dpi, user-scalable=no">
+  <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -131,7 +134,7 @@ $(document).ready(function(){
     addButton.click(function(e){ return change_view('form');});
     formBackButton.click(function(e){ return change_view('list');});
         
-//    setInterval("titleTracksUpdate('http://10.0.2.2:8000/get_title_tracks/')", 2000);
+    setInterval("titleTracksUpdate('http://10.0.2.2:8000/get_title_tracks/')", 2000);
     
     //Find active station 
     var station = getActiveStation('.station');
