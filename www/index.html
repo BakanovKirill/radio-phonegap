@@ -20,194 +20,142 @@
 </head>
 <body class="section-homepage">
 
-  <div id="home-wrapper" class="visual-portal-wrapper no-volume">
-  
-    <div id="player_box"></div>
 
-    <div class="player-wrapper station">
-    <div class="loading-wrapper">    
-      <div class="station-title"></div>
-      <a class="icon-add-comment" href="#">Комментарии</a>
-      <ul class="jp-controls play-status">
-        <li><a tabindex="1" class="jp-play" title='play' href="javascript:;"><span>play</span></a></li>
-        <li><a tabindex="1" class="jp-pause" title='stop' href="javascript:;" style="display: none;"><span>stop</span></a></li>
-      </ul>
-      <div class="song-title current-track"></div>
-      <div class="bitrate"></div>
-      <ul class="jp-controls">
-        <li><a title="Mute" tabindex="1" class="jp-mute volume-icon" id="volume-icon-left" href="javascript:;">mute</a></li>
-        <li><a title="Max volume" tabindex="1" class="jp-volume-max volume-icon" id="volume-icon-right" href="javascript:;">Max volume</a></li>
-      </ul>
-      <div class="jp-volume-bar volume-wrapper">
-        <div class="jp-volume-bar-value" style="width: 100%;"></div>
-      </div>
-    </div>
-    </div>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <script src="js/jquery.json-2.3.min.js"></script>
+  <script src="js/jstorage.min.js"></script>
+  <script src="js/jquery.tools.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/jquery.toastmessage.js"></script>
+  <script src="mobile/js/jplayer/jquery.jplayer.min.js"></script>
+  <script type="text/javascript">
+    var SITE_ROOT='http://127.0.0.1:8000';
+    var AUTH_HREF = SITE_ROOT+'/auth/login/';
     
-    <div class="stations-wrapper">
-
-    </div>
-
-  </div>
-  
-
-  <div id="comments-wrapper" class="visual-portal-wrapper">
-    
-    <div class="top-bar-wrapper">
-      <div class="top-bar">
-        <a class="button-back" href="#">Назад</a>
-        <a class="button-add" href="#">+</a>
-        <span class="text">Комментарии</span>
-      </div>
-    </div>
-    
-    <div class="comments-wrapper">
-        <h2>Радиостанция: <span class="station-title"></span></h2>
-        <ul><li>
-          <span class="username">admin</span>
-          <span class="date">01-09-2011</span>
-          <div class="comment-body">A vut integer turpis habitasse a nec hac penatibus tempor, adipiscing elementum? In. Porta, porttitor!</div>
-        </li></ul>
-    </div>
-  
-  </div>
-  
-  <div id="add-comment-wrapper" class="visual-portal-wrapper">
-    
-    <div class="top-bar-wrapper">
-      <div class="top-bar">
-        <a class="button-back" href="#">Назад</a>
-        <span class="text">Add comment</span>
-      </div>
-    </div>
-    
-    <form class="comment-add-wrapper">
-      <textarea name="comment" placeholder="Enter comment text here">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
-    </form>
-    
-  </div>
-
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-<script src="js/jquery.json-2.3.min.js"></script>
-<script src="js/jstorage.min.js"></script>
-<script src="js/jquery.tools.min.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/jquery.toastmessage.js"></script>
-<script src="mobile/js/jplayer/jquery.jplayer.min.js"></script>
-<script type="text/javascript">
-var AUTH_HREF = 'http://10.0.2.2:8000/auth/login';
-
-var portletPlayer = $("#home-wrapper .loading-wrapper");
-var player = $("#home-wrapper #player_box");
-var bitrateRegExp = /(\d+)\.[aac|mp3]/;
-
-var commentButton = $("#home-wrapper .icon-add-comment");
-var backButton = $("#comments-wrapper .button-back");
-var addButton = $("#comments-wrapper  .button-add");
-var formBackButton = $("#add-comment-wrapper .button-back");
-
-function change_view(view_name)
-{
-    switch(view_name) {
+    function change_view(view_name) {
+      switch (view_name) {
         case 'list':
-        	$('body').attr('class', 'section-comments');
-            break;
+          $('body').attr('class', 'section-comments');
+          break;
         case 'form':
-//            {% if request.user.is_authenticated %}
-//            	$('body').attr('class', 'page-add-new-comment');
-//                $('.comment-add-wrapper textarea').focus();
-//            {% else %}
-                window.location = AUTH_HREF;
-//            {% endif %}
-            break;
+  //      {% if request.user.is_authenticated %}
+  //        $('body').attr('class', 'page-add-new-comment');
+  //        $('.comment-add-wrapper textarea').focus();
+  //        {% else %}
+
+          window.location = AUTH_HREF;
+  //        {% endif %}
+          break;
         case 'home':
-            $('body').attr('class', 'section-homepage');
-            break;
-    }
-    return false;
-}
-
-$(document).ready(function(){
-	
-    backButton.click(function(e){ return change_view('home');});
-    commentButton.click(function(e){ return change_view('list');});
-    addButton.click(function(e){ return change_view('form');});
-    formBackButton.click(function(e){ return change_view('list');});
-        
-    setInterval("titleTracksUpdate('http://10.0.2.2:8000/get_title_tracks/')", 2000);
-    
-    //Find active station 
-    var station = getActiveStation('.station');
-
-    player.jPlayer({
-      ready: function(){
-        var player = $(this);
-        $('.station .change-link').history( function(event, hash) {
-
-          var selectedClass = 'selected';
-          $(".station").removeClass(selectedClass);
-          $('.'+$(this).parent('li').attr('id')).addClass(selectedClass);
-          portletPlayer.loadIndicator();
-
-          $.get($(this).attr('rel'), function(data){
-            
-            commentButton.attr('href', hash);
-            backButton.attr('href', hash);
-            addButton.attr('href', hash);
-            
-            portletPlayer.deleteIndicator();
-    
-            //Save in local storage current chosen station
-            $.jStorage.set("station", data['station_pk']);
-      	
-            $('.player-wrapper').attr('id', "station_"+data['station_pk']);
-            $('.player-wrapper .station-title').text(data['station_title']);
-            $('.player-wrapper .current-track').text(data['track_title']);
-            
-            $('#add-comment-wrapper form').replaceWith(data['comment_form']);
-            $('#comments-wrapper .comments-wrapper ul').replaceWith(data['comment_list']);
-            
-            //Station's title for comments
-            $('.comments-wrapper .station-title').text(data['station_title']);
-          	
-            player.jPlayer("clearMedia").jPlayer("setMedia", data['player_data']).jPlayer("play");
-          });
+          $('body').attr('class', 'section-homepage');
+          break;
+        }
           return false;
-        });
-        
-      	//Choose active station
-      	window.location.hash = station.find('.change-link').attr('href');
-    
-      },
-      solution: "html,flash",
-      supplied: "fla,m4a,mp3",
-      swfPath: "mobile/js/jplayer",
-      cssSelectorAncestor: ".player-wrapper",
-      backgroundColor: "transparent",
-      preload: "none",
-      wmode: "window",
-      errorAlerts: false,
-      warningAlerts: false
-    });
-
-    player.bind($.jPlayer.event.play, function(event) {
-      console.log(event.jPlayer.status.src);
-      
-      var m = bitrateRegExp.exec(event.jPlayer.status.src);
-      if(m && m.length == 2) {
-    	  $('.player-wrapper .bitrate').html(m[1]+" kbit/s").show();
       }
-    });
-    player.bind($.jPlayer.event.ready, function(event) {
-      $(event.target).closest('.visual-portal-wrapper').toggleClass('no-volume', event.jPlayer.status.noVolume);
-    });
-    
-});
-</script>
 
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">
-  app.initialize();
-</script>
+      function content_loaded() {
+        var portletPlayer = $("#home-wrapper .loading-wrapper");
+        var player = $("#home-wrapper #player_box");
+        var bitrateRegExp = /(\d+)\.[aac|mp3]/;
+
+        var commentButton = $("#home-wrapper .icon-add-comment");
+        var backButton = $("#comments-wrapper .button-back");
+        var addButton = $("#comments-wrapper  .button-add");
+        var formBackButton = $("#add-comment-wrapper .button-back");
+
+        backButton.click(function (e) {
+          return change_view('home');
+        });
+        commentButton.click(function (e) {
+          return change_view('list');
+        });
+        addButton.click(function (e) {
+          return change_view('form');
+        });
+        formBackButton.click(function (e) {
+          return change_view('list');
+        });
+
+  //      setInterval("titleTracksUpdate('http://127.0.0.1:8000/get_title_tracks/')", 2000);
+
+        //Find active station
+        var station = getActiveStation('.station');
+
+        player.jPlayer({
+          ready: function () {
+            var player = $(this);
+            $('.station .change-link').history(function (event, hash) {
+
+              var selectedClass = 'selected';
+              $(".station").removeClass(selectedClass);
+              $('.' + $(this).parent('li').attr('id')).addClass(selectedClass);
+              portletPlayer.loadIndicator();
+
+              $.get($(this).attr('rel'), function (data) {
+
+                commentButton.attr('href', hash);
+                backButton.attr('href', hash);
+                addButton.attr('href', hash);
+
+                portletPlayer.deleteIndicator();
+
+                //Save in local storage current chosen station
+                $.jStorage.set("station", data['station_pk']);
+
+                $('.player-wrapper').attr('id', "station_" + data['station_pk']);
+                $('.player-wrapper .station-title').text(data['station_title']);
+                $('.player-wrapper .current-track').text(data['track_title']);
+
+                $('#add-comment-wrapper form').replaceWith(data['comment_form']);
+                $('#comments-wrapper .comments-wrapper ul').replaceWith(data['comment_list']);
+
+                //Station's title for comments
+                $('.comments-wrapper .station-title').text(data['station_title']);
+
+                player.jPlayer("clearMedia").jPlayer("setMedia", data['player_data']).jPlayer("play");
+              });
+              return false;
+            });
+
+            //Choose active station
+            window.location.hash = station.find('.change-link').attr('href');
+
+          },
+          solution: "html,flash",
+          supplied: "fla,m4a,mp3",
+          swfPath: "mobile/js/jplayer",
+          cssSelectorAncestor: ".player-wrapper",
+          backgroundColor: "transparent",
+          preload: "none",
+          wmode: "window",
+          errorAlerts: false,
+          warningAlerts: false
+        });
+
+        player.bind($.jPlayer.event.play, function (event) {
+          console.log(event.jPlayer.status.src);
+
+          var m = bitrateRegExp.exec(event.jPlayer.status.src);
+          if (m && m.length == 2) {
+            $('.player-wrapper .bitrate').html(m[1] + " kbit/s").show();
+          }
+        });
+        player.bind($.jPlayer.event.ready, function (event) {
+          $(event.target).closest('.visual-portal-wrapper').toggleClass('no-volume', event.jPlayer.status.noVolume);
+        });
+
+      }
+  </script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript">
+    app.initialize();
+    $(document).ready(function(){
+      $.get(SITE_ROOT+'/app/stations/', function(data) {
+        data=data.replace('/static/', '');
+        $('body').prepend(data);
+        setTimeout(content_loaded, 100)
+      })
+    });
+  </script>
 </body>
 </html>
