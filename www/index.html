@@ -5,158 +5,161 @@
   <meta charset="utf-8">
   <title>Radio - eTVnet</title>
   <meta name="description" content="eTVnet радио онлайн">
-  
-  <meta name="HandheldFriendly" content="True" />
+
+  <meta name="HandheldFriendly" content="True"/>
   <meta name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
   <link href="img/favicon.ico" rel="shortcut icon"/>
-      <link rel="stylesheet" href="mobile/css/style.css">
-      <link rel="stylesheet" type="text/css" media="all" href="css/jquery.toastmessage.css"/>
-      <link rel="stylesheet" href="mobile/css/changes.css">
+  <link rel="stylesheet" href="mobile/css/style.css">
+  <link rel="stylesheet" type="text/css" media="all" href="css/jquery.toastmessage.css"/>
+  <link rel="stylesheet" href="mobile/css/changes.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 </head>
 <body class="section-homepage">
 
 
-  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-  <script src="js/jquery.json-2.3.min.js"></script>
-  <script src="js/jstorage.min.js"></script>
-  <script src="js/jquery.tools.min.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/jquery.toastmessage.js"></script>
-  <script src="mobile/js/jplayer/jquery.jplayer.min.js"></script>
-  <script type="text/javascript">
-//    var SITE_ROOT='http://127.0.0.1:8000';
-    var SITE_ROOT='http://10.0.2.2:8000';
-    var AUTH_HREF = SITE_ROOT+'/auth/login/';
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script src="js/jquery.json-2.3.min.js"></script>
+<script src="js/jstorage.min.js"></script>
+<script src="js/jquery.tools.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/jquery.toastmessage.js"></script>
+<script src="mobile/js/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript">
+  var SITE_ROOT = 'http://127.0.0.1:8000'; // leave this while testing in the device
+  //    var SITE_ROOT='http://10.0.2.2:8000'; // leave this while testing in a browser
+  var AUTH_HREF = SITE_ROOT + '/auth/login/';
 
-    function change_view(view_name) {
-      switch (view_name) {
-        case 'list':
-          $('body').attr('class', 'section-comments');
-          break;
-        case 'form':
-  //      {% if request.user.is_authenticated %}
-  //        $('body').attr('class', 'page-add-new-comment');
-  //        $('.comment-add-wrapper textarea').focus();
-  //        {% else %}
+  function change_view(view_name) {
+    switch (view_name) {
+      case 'list':
+        $('body').attr('class', 'section-comments');
+        break;
+      case 'form':
+        //      {% if request.user.is_authenticated %}
+        //        $('body').attr('class', 'page-add-new-comment');
+        //        $('.comment-add-wrapper textarea').focus();
+        //        {% else %}
 
-          window.location = AUTH_HREF;
-  //        {% endif %}
-          break;
-        case 'home':
-          $('body').attr('class', 'section-homepage');
-          break;
-        }
-          return false;
-      }
+        window.location = AUTH_HREF;
+        //        {% endif %}
+        break;
+      case 'home':
+        $('body').attr('class', 'section-homepage');
+        break;
+    }
+    return false;
+  }
 
-      function content_loaded() {
-        var portletPlayer = $("#home-wrapper .loading-wrapper");
-        var player = $("#home-wrapper #player_box");
-        var bitrateRegExp = /(\d+)\.[aac|mp3]/;
+  function content_loaded() {
+    var portletPlayer = $("#home-wrapper .loading-wrapper");
+    var player = $("#home-wrapper #player_box");
+    var bitrateRegExp = /(\d+)\.[aac|mp3]/;
 
-        var commentButton = $("#home-wrapper .icon-add-comment");
-        var backButton = $("#comments-wrapper .button-back");
-        var addButton = $("#comments-wrapper  .button-add");
-        var formBackButton = $("#add-comment-wrapper .button-back");
+    var commentButton = $("#home-wrapper .icon-add-comment");
+    var backButton = $("#comments-wrapper .button-back");
+    var addButton = $("#comments-wrapper  .button-add");
+    var formBackButton = $("#add-comment-wrapper .button-back");
 
-        backButton.click(function (e) {
-          return change_view('home');
-        });
-        commentButton.click(function (e) {
-          return change_view('list');
-        });
-        addButton.click(function (e) {
-          return change_view('form');
-        });
-        formBackButton.click(function (e) {
-          return change_view('list');
-        });
-
-  //      setInterval("titleTracksUpdate('http://127.0.0.1:8000/get_title_tracks/')", 2000);
-
-        //Find active station
-        var station = getActiveStation('.station');
-
-        player.jPlayer({
-          ready: function () {
-            var player = $(this);
-            $('.station .change-link').history(function (event, hash) {
-
-              var selectedClass = 'selected';
-              $(".station").removeClass(selectedClass);
-              $('.' + $(this).parent('li').attr('id')).addClass(selectedClass);
-              portletPlayer.loadIndicator();
-
-              $.get($(this).attr('rel'), function (data) {
-
-                commentButton.attr('href', hash);
-                backButton.attr('href', hash);
-                addButton.attr('href', hash);
-
-                portletPlayer.deleteIndicator();
-
-                //Save in local storage current chosen station
-                $.jStorage.set("station", data['station_pk']);
-
-                $('.player-wrapper').attr('id', "station_" + data['station_pk']);
-                $('.player-wrapper .station-title').text(data['station_title']);
-                $('.player-wrapper .current-track').text(data['track_title']);
-
-                $('#add-comment-wrapper form').replaceWith(data['comment_form']);
-                $('#comments-wrapper .comments-wrapper ul').replaceWith(data['comment_list']);
-
-                //Station's title for comments
-                $('.comments-wrapper .station-title').text(data['station_title']);
-
-                player.jPlayer("clearMedia").jPlayer("setMedia", data['player_data']).jPlayer("play");
-              });
-              return false;
-            });
-
-            //Choose active station
-            window.location.hash = station.find('.change-link').attr('href');
-
-          },
-          solution: "html,flash",
-          supplied: "fla,m4a,mp3",
-          swfPath: "mobile/js/jplayer",
-          cssSelectorAncestor: ".player-wrapper",
-          backgroundColor: "transparent",
-          preload: "none",
-          wmode: "window",
-          errorAlerts: false,
-          warningAlerts: false
-        });
-
-        player.bind($.jPlayer.event.play, function (event) {
-          console.log(event.jPlayer.status.src);
-
-          var m = bitrateRegExp.exec(event.jPlayer.status.src);
-          if (m && m.length == 2) {
-            $('.player-wrapper .bitrate').html(m[1] + " kbit/s").show();
-          }
-        });
-        player.bind($.jPlayer.event.ready, function (event) {
-          $(event.target).closest('.visual-portal-wrapper').toggleClass('no-volume', event.jPlayer.status.noVolume);
-        });
-
-      }
-  </script>
-  <script type="text/javascript" src="js/index.js"></script>
-  <script type="text/javascript">
-    app.initialize();
-    $(document).ready(function(){
-      $.get(SITE_ROOT+'/app/stations/', function(data) {
-        data=data.replace('/static/', '');
-        $('body').prepend(data);
-        setTimeout(content_loaded, 100)
-      })
+    backButton.click(function (e) {
+      return change_view('home');
     });
-  </script>
+    commentButton.click(function (e) {
+      return change_view('list');
+    });
+    addButton.click(function (e) {
+      return change_view('form');
+    });
+    formBackButton.click(function (e) {
+      return change_view('list');
+    });
+
+    //      setInterval("titleTracksUpdate('http://127.0.0.1:8000/get_title_tracks/')", 2000);
+
+    //Find active station
+    var station = getActiveStation('.station');
+
+    player.jPlayer({
+      ready: function () {
+        var player = $(this);
+        $('.station .change-link').history(function (event, hash) {
+
+          var selectedClass = 'selected';
+          $(".station").removeClass(selectedClass);
+          $('.' + $(this).parent('li').attr('id')).addClass(selectedClass);
+          portletPlayer.loadIndicator();
+
+          $.get($(this).attr('rel'), function (data) {
+
+            commentButton.attr('href', hash);
+            backButton.attr('href', hash);
+            addButton.attr('href', hash);
+
+            portletPlayer.deleteIndicator();
+
+            //Save in local storage current chosen station
+            $.jStorage.set("station", data['station_pk']);
+
+            $('.player-wrapper').attr('id', "station_" + data['station_pk']);
+            $('.player-wrapper .station-title').text(data['station_title']);
+            $('.player-wrapper .current-track').text(data['track_title']);
+
+            $('#add-comment-wrapper form').replaceWith(data['comment_form']);
+            $('#comments-wrapper .comments-wrapper ul').replaceWith(data['comment_list']);
+
+            //Station's title for comments
+            $('.comments-wrapper .station-title').text(data['station_title']);
+
+            player.jPlayer("clearMedia").jPlayer("setMedia", data['player_data']).jPlayer("play");
+          });
+          return false;
+        });
+
+        //Choose active station
+        window.location.hash = station.find('.change-link').attr('href');
+
+      },
+      solution: "html,flash",
+      supplied: "fla,m4a,mp3",
+      swfPath: "mobile/js/jplayer",
+      cssSelectorAncestor: ".player-wrapper",
+      backgroundColor: "transparent",
+      preload: "none",
+      wmode: "window",
+      errorAlerts: false,
+      warningAlerts: false
+    });
+
+    player.bind($.jPlayer.event.play, function (event) {
+      console.log(event.jPlayer.status.src);
+
+      var m = bitrateRegExp.exec(event.jPlayer.status.src);
+      if (m && m.length == 2) {
+        $('.player-wrapper .bitrate').html(m[1] + " kbit/s").show();
+      }
+    });
+    player.bind($.jPlayer.event.ready, function (event) {
+      $(event.target).closest('.visual-portal-wrapper').toggleClass('no-volume', event.jPlayer.status.noVolume);
+    });
+    $('.change-link').each(function (i, obj) {
+      var link = SITE_ROOT + $(obj).attr('rel');
+      $(obj).attr('rel', link);
+      console.log($(obj).attr('rel'))
+    })
+  }
+</script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+  app.initialize();
+  $(document).ready(function () {
+    $.get(SITE_ROOT + '/app/stations/', function (data) {
+      $('body').prepend(data);
+      setTimeout(content_loaded, 100)
+    })
+  });
+</script>
 </body>
 </html>
