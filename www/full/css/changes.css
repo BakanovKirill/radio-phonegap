@@ -1,0 +1,112 @@
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+#portal-actions li {
+  margin-left: 0px;
+}
+
+.detail-comment-list {
+  top: 32px;
+}
+
+.add-comment-form {
+  height: 117px;
+}
+
+.close-add-comment {
+  float: right;
+  text-transform: lowercase;
+  font-size: 11px;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+.portlet-player .bitrate-choice.last-link {
+  margin-left: 20px;
+}
+
+textarea.error {
+  border: solid 1px #f03c3c;
+  background: #fdefef;
+}
+
+/* AJAX-loader */
+div.loader {
+  background-image: url("../../img/ajax-loader.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  position: absolute;
+}
+div.loader div {
+  text-align: center;
+  background-color: #FFFE36;
+  color: #484848;
+}
+
+.ajax-loading {
+  -moz-opacity: .2;
+  opacity: .2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+.portlet-player .wrap-volume {
+  position: relative;
+  height: 2px;
+  background-color: white;
+  top: 7px;
+}
+
+#interface_player .jp-volume-bar input {
+  display: none;
+}
+
+#player_box.active {
+  z-index: 9 !important;
+  height: 86px !important;
+  width: 86px !important;
+  visibility: visible !important;
+}
+#player_box {
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+  background-color: transparent !important;
+}
+#player_box_jwplayer_display_iconBackground {
+  background-image: none !important;
+  top: 15px !important;
+  left: 15px !important;
+}
+
+#player_box_jwplayer_display_icon {
+  background: url(../img/player-play-stop-buttons-white.png) no-repeat 0 0 !important;
+  width: 59px !important;
+  height: 59px !important;
+}
+
+#player_box_jwplayer_logo {
+  display: none !important;
+}
+
+#portal-login #button-logout{
+  float: right;
+  margin-left: 10px;
+}
+
+.station.selected img.icon,
+.station img.anime {
+  display: none;
+}
+
+.station.selected img.anime,
+.station img.icon {
+  display: block;
+}
+

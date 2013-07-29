@@ -1,0 +1,439 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/* ==|== primary styles =====================================================
+   Author: Michael Krishtopa <theo at heddex dot biz>, 2012
+   ========================================================================== */
+
+/*
+ * FONTS DECLARATION
+ */
+
+@font-face {
+	font-family: 'segoeuiregular';
+	src: url('../fonts/segoeui_1.eot');
+	src: local('☺'), url('../fonts/segoeui_1.woff') format('woff'), url('../fonts/segoeui_1.ttf') format('truetype'), url('../fonts/segoeui_1.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* BASIC STYLES */
+
+html {
+/*  overflow: scroll;
+  -webkit-overflow-scrolling: touch;*/
+}
+html, body {
+  height: 100%;
+}
+body {
+  color: #fff;
+  font-family: Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
+  background: #043458 url(../img/global-bg.jpg) fixed repeat-y center top;
+}
+a {
+  text-decoration: none;
+}
+
+/* Shared */
+
+.song-title,
+.play-now-text,
+.comment-add-wrapper textarea, .comment-add-wrapper input {
+  font-family: segoeuiregular,Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
+}
+
+/* STRUCTURE STYLES */
+
+.top-bar {
+  width: 590px;
+  margin: 0 auto;
+}
+.visual-portal-wrapper {
+  width: 590px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* Player */
+
+.player-wrapper {
+  position: fixed;
+  z-index: 255;
+  width: 590px;
+  height: 313px;
+  top: 0;
+  margin: 20px 0;
+  background: url(../img/player-bg.jpg) no-repeat left top;
+}
+.player-wrapper .station-title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 33px;
+  font-weight: bold;
+}
+
+.icon-add-comment {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 73px;
+  height: 52px;
+  overflow: hidden;
+  text-indent: -999em;
+  background: url(../img/icons-chat.png) no-repeat left -1px;
+}
+.icon-add-comment:hover {
+  background-position: left bottom;
+}
+
+.play-status {
+  position: absolute;
+  top: 95px;
+  left: 27px;
+  width: 116px;
+}
+.play-status a {
+  display: block;
+  cursor: pointer;
+  background: url(../img/player-circles.png) no-repeat left top;
+}
+.play-status a:hover {
+  background-position: right top;
+}
+.play-status a span {
+  display: block;
+  height: 116px;
+  overflow: hidden;
+  text-indent: -999em;
+  background-image: url(../img/player-controls.png);
+  background-repeat: no-repeat;
+}
+.play-status .jp-play span {
+  background-position: 43px 27px;
+}
+.play-status .jp-play:hover span {
+  background-position: 43px -103px;
+}
+.play-status .jp-pause span {
+  background-position: -77px 29px;
+}
+.play-status .jp-pause:hover span {
+  background-position: -77px -101px;
+}
+
+.player-wrapper .song-title {
+  position: absolute;
+  left: 180px;
+  top: 120px;
+  width: 400px;
+  font-size: 25px;
+  font-family: segoeuisemibold,Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
+}
+
+.bitrate {
+  position: absolute;
+  left: 180px;
+  top: 190px;
+  height: 26px;
+  line-height: 26px;
+  padding-left: 34px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #ffa200;
+  text-shadow: 0 0 5px rgba(0,0,0,0.75);
+  background: url(../img/icon-dynamic1.png) no-repeat left center;
+}
+
+.volume-wrapper {
+  position: absolute;
+  left: 59px;
+  top: 265px;
+  height: 16px;
+  width: 457px;
+  cursor: pointer;
+  background: url(../img/volume-bg1.png) repeat-x left top;
+}
+.volume-wrapper .jp-volume-bar-value {
+  display: block;
+  position: relative;
+  height: 16px;
+  cursor: pointer;
+  background: url(../img/volume-bg2.png) repeat-x left top;
+}
+.volume-wrapper .jp-volume-bar-value:after {
+  content: '';
+  position: absolute;
+  right: -25px;
+  top: -16px;
+  width: 49px;
+  height: 49px;
+  background: url(../img/volume-dot.png) no-repeat center center;
+}
+.volume-icon {
+  position: absolute;
+  top: 255px;
+  height: 36px;
+  width: 36px;
+  overflow: hidden;
+  text-indent: -999em;
+  background: url(../img/volume-icons.png) no-repeat left top;
+}
+.volume-icon:hover {
+  background-position: left bottom;
+}
+#volume-icon-left {
+  left: 17px;
+}
+#volume-icon-right {
+  right: 17px;
+  background-position: right top;
+}
+#volume-icon-right:hover {
+  background-position: right bottom;
+}
+
+.stations-wrapper {
+  margin-top: 350px;
+  margin-bottom: 20px;
+  border: 1px solid #d0dae3;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.stations-wrapper h2 {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+  color: #94a1ad;
+  color: rgba(255,255,255,0.52);
+  text-transform: uppercase;
+  font-weight: bold;
+  background: url(../img/stations-list-header-bg.jpg) no-repeat right top;
+  border-bottom: 1px solid #d0dae3;
+  border-bottom: 1px solid rgba(255,255,255,0.32);
+}
+.stations-wrapper li {
+  position: relative;
+  height: 130px;
+  overflow: hidden;
+  font-size: 16px;
+  color: #ffa200;
+  border-top: 1px solid #cfd3d7;
+  border-top: 1px solid rgba(255,255,255,0.71);
+  background: url(../img/station-bg1.jpg) no-repeat left top;
+}
+.stations-wrapper li:first-child {
+  border-top: 0;
+}
+.stations-wrapper li.selected {
+  background: url(../img/station-bg2.jpg) no-repeat left top;
+}
+.stations-wrapper li a {
+  display: block;
+  padding: 10px 50px 10px 10px;
+  color: #ffa200;
+  text-decoration: none;
+}
+.stations-wrapper li img {
+  float: left;
+  margin-right: 15px;
+  border: 3px solid #001e37;
+}
+.stations-wrapper .station-title {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+}
+.play-now-text {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffa200;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.75);
+}
+.stations-wrapper .song-title {
+  color: #fff;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+/* Top bar with buttons */
+
+.top-bar-wrapper {
+  position: fixed;
+  top: 0px;
+  width: 590px;
+  /*margin: 0 0 20px 0;*/
+  background: url(../img/top-bar-bg.png) repeat-x left top;
+  z-index: 256;
+}
+.top-bar {
+  height: 88px;
+  line-height: 85px;
+  text-align: center;
+  font-size: 33px;
+  font-weight: bold;  
+  color: #fff;
+}
+.button-back,
+.button-add,
+.comment-add-wrapper button {
+  display: block;
+  height: 60px;
+  margin-top: 14px;
+  line-height: 60px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.6);
+  background: url(../img/sprite-buttons.png) no-repeat;
+}
+
+.comment-add-wrapper button {
+  border: 0;
+}
+
+.button-back,
+.comment-add-wrapper button {
+  float: left;
+  width: 154px;
+  font-size: 23px;
+  background-position: left top;
+}
+.button-back:hover,
+.comment-add-wrapper button:hover {
+  background-position: left -70px;
+}
+.button-add {
+  float: right;
+  width: 87px;
+  font-size: 50px;
+  background-position: right top;
+}
+.button-add:hover {
+  background-position: right -70px;
+}
+
+.comments-wrapper {
+  margin-bottom: 15px;
+  border: 1px solid #d0dae3;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.comments-wrapper h2 {
+  height: 64px;
+  line-height: 64px;
+  padding-left: 15px;
+  font-size: 22px;
+  color: #94a1ad;
+  color: rgba(255,255,255,0.52);
+  text-transform: uppercase;
+  font-weight: bold;
+  background: url(../img/stations-list-header-bg2.jpg) no-repeat right top;
+  border-bottom: 1px solid #d0dae3;
+  border-bottom: 1px solid rgba(255,255,255,0.32);
+}
+.comments-wrapper h2 span {
+  margin-left: 5px;
+  text-transform: none;
+  color: #fff;
+  font-size: 32px;
+  line-height: 64px;
+}
+.comments-wrapper li {
+  overflow: hidden;
+  padding: 5px 20px 20px 20px;
+  font-size: 22px;
+  color: #ffa200;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #fff;
+  border-top: 1px solid #cfd3d7;
+  border-top: 1px solid rgba(255,255,255,0.71);
+  background: url(../img/bg1.png) no-repeat left top;
+  background-size: 100% 100%;
+}
+.comments-wrapper li:first-child {
+  border-top: 0;
+}
+.username {
+  float: left;
+  font-size: 25px;
+  font-weight: bold;
+  color: #ffa200;
+  text-shadow: 0 0 5px rgba(0,0,0,0.75);
+}
+.date {
+  float: right;
+  margin-top: 5px;
+  color: #fff;
+  font-size: 20px;
+}
+.comment-body {
+  clear: both;
+}
+
+.section-comments .visual-portal-wrapper .comments-wrapper,
+.page-add-new-comment .visual-portal-wrapper .comment-add-wrapper {
+  margin-top: 110px;
+}
+
+.comment-add-wrapper textarea, .comment-add-wrapper input {
+  /*display: block;*/
+  /*height: 236px;*/
+  padding: 10px 15px;
+  width: 558px;
+  color: #fff;
+  font-size: 25px;
+  line-height: 1.3;
+  border: 0;
+  resize: none;
+  background: transparent url(../img/bg2.png) repeat-x left bottom;
+  background-size: 100% 100%;
+}

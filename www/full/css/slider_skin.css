@@ -1,0 +1,37 @@
+/* slider root element */
+.slider {
+  position: relative;
+  height: 3px;
+  cursor:pointer;
+  background-color: #fff;
+}
+
+/* progress bar (enabled with progress: true) */
+.progress {
+    background-color: #ffa200;
+    height: 3px;
+}
+
+/* drag handle */
+.handle {
+  display:block;
+  margin-top:1px;
+  cursor:move;
+  -moz-box-shadow:0 0 6px #000;
+  -webkit-box-shadow:0 0 6px #000;
+  -moz-border-radius:14px;
+  -webkit-border-radius:14px;
+
+  cursor:move;
+  position: absolute;
+  right: 0;
+  top: -4px;
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: url(../img/volume-dot.png) no-repeat left top;
+
+}
+.handle:after {
+  background-color: white;
+}

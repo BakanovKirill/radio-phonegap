@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
+  <title>Radio - eTVnet</title>
+  <meta name="description" content="eTVnet радио онлайн"/>
+  <meta name="keywords" content="etvnet,радио,онлайн" />
+
+  <!-- Mobile viewport optimisation -->
+
+  <link href="img/favicon.ico" rel="shortcut icon"/>
+
+      <link rel="stylesheet" type="text/css" media="all" href="full/css/style.css"/>
+      <link rel="stylesheet" type="text/css" media="all" href="full/css/slider_skin.css"/>
+      <link rel="stylesheet" type="text/css" media="all" href="full/css/changes.css"/>
+
+    <!--[if lt IE 9]>
+      <script src="full/ie7/IE9.js"></script>
+      <script type="text/javascript" src="full/js/PIE.js"></script>
+    <![endif]-->
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+<div id="visual-portal-wrapper">
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a
+  different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to
+  experience this site.</p><![endif]-->
+
+  <div class="portal-header">
+    <a id="logo" href="/">eTVnet Radio</a>
+
+    <div id="header-advert">
+      <!--Уважаемые слушатели! С 13:00 до 14:00 (мск) на сайте будут проводиться технические работы. Просим прощения за неудобства.--></div>
+    <ul id="portal-actions">
+      <li class="action-login"></li>
+    </ul>
+  </div>
+
+  <div role="main" class="content">
+
+    <dl class="portlet portlet-player">
+
+      <dt class="portletHeader mount_link"></dt>
+
+      <dd class="portletItem">
+        <div class="station">
+          <div id="metadata" class="current-track"></div>
+        </div>
+
+        <div id="player_box"></div>
+
+        <div id="interface_player" class="jp-audio">
+          <div class="jp-type-single">
+            <div class="jp-gui jp-interface">
+              <ul class="jp-controls">
+                <li><a tabindex="1" class="jp-play" href="#">play</a></li>
+                <li><a tabindex="1" class="jp-pause" href="javascript:;" style="display: none;">pause</a></li>
+                <li><a title="mute" tabindex="1" class="jp-mute" href="javascript:;">mute</a></li>
+                <li><a title="unmute" tabindex="1" class="jp-unmute" href="javascript:;"
+                       style="display: none;">unmute</a></li>
+              </ul>
+
+              <div class="jp-volume-bar">
+                <input type="range" name="volume" min="0" max="100" step="5"/>
+              </div>
+            </div>
+            <div class="jp-no-solution" style="display: none;">
+              <span>Update Required</span>
+              To play the media you will need to either update your browser to a recent version or update your <a
+                    target="_blank" href="http://get.adobe.com/flashplayer/">Flash plugin</a>.
+            </div>
+            <div class="bitrate"></div>
+          </div>
+        </div>
+
+      </dd>
+      <dd class="portletFooter"><!-- --></dd>
+    </dl>
+
+    <dl class="portlet portlet-comments">
+
+      <dt class="portletHeader">
+        COMMENTS <span></span>
+        <a href="#" class="comment-add-link">Add</a>
+      </dt>
+
+      <dd class="portletFooter">
+        <a href="#" class="view-all-comments">View All</a>
+      </dd>
+
+    </dl>
+
+    <dl class="portlet portlet-add-comment add-comment-form">
+      <dt class="portletHeader">Add comment:</dt>
+      <dd class="portletItem add-new-comment"></dd>
+    </dl>
+
+    <dl class="portlet portlet-add-comment portlet-add-comment-with-comments detail-comment-list"></dl>
+
+    <div class="visualClear"><!-- --></div>
+
+    <h1>ALL RADIOSTATIONS</h1>
+
+    <div class="stations-wrapper">
+
+      <a class="scroll scroll-left" href="#">left</a>
+      <a class="scroll scroll-right" href="#">right</a>
+
+      <div class="jCarouselLite">
+        <ul class="stations-list">
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+<script src="full/js/modernizr.custom.js"></script>
+<script src="js/jquery.json-2.3.min.js"></script>
+<script src="js/jstorage.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="full/js/jcarousellite_1.0.1.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/jquery.truncateFirefox.js"></script>
+<script src="js/jquery.tools.min.js"></script>
+<script src='full/jwplayer/jwplayer.js'></script>
+<script src="full/js/jquery.mousewheel.min.js"></script>
+<script>
+
+function updateAdvertising() {
+  var stationID = $.jStorage.get("station");
+//    if (stationID) {
+//      $("#header-advert").load("{% url get_advertising param_name='station' %}?station=" + stationID);
+//    }
+}
+
+$(document).ready(function () {
+  var portletPlayer = $(".portlet-player");
+  var playButton = $("#interface_player .jp-play");
+  var pauseButton = $("#interface_player .jp-pause");
+  var muteButton = $("#interface_player .jp-mute");
+  var unmuteButton = $("#interface_player .jp-unmute");
+  var isMobile = jwplayer.utils.isMobile();
+  var hasFlash = jwplayer.utils.hasFlash();
+
+  var playerConfig = {
+    id: 'interface_player',
+    width: '86',
+    height: '86',
+    allowscriptaccess: 'always',
+    allowfullscreen: false,
+    controlbar: 'none',
+    showmute: false,
+    autostart: false,
+    modes: [
+      {
+        type: "html5",
+        config: {
+          'provider': 'sound'
+        }
+      },
+      {
+        type: "flash",
+        src: "full/jwplayer/player.swf",
+        config: {
+          'provider': 'http'
+        }
+      }
+    ],
+    events: {
+      onReady: function (event) {
+        playButton.click(function (event) {
+          jwplayer().play(true);
+          return false;
+        });
+        console.log(this.renderingMode);
+        if (isMobile && this.renderingMode != 'flash') {
+          $('#player_box').addClass('active');
+        } else {
+          playButton.click();
+        }
+      },
+      onVolume: function (event) {
+        volumeBar.setValue(event.volume);
+        toggleVolumePlayer(event.volume);
+        $.jStorage.set("volume", event.volume);
+      },
+      onPlay: function (event) {
+        $('#player_box').removeClass('active');
+        playButton.hide();
+        pauseButton.show();
+      },
+      onIdle: function (event) {
+        playButton.show();
+        pauseButton.hide();
+      },
+      onPause: function (event) {
+        playButton.show();
+        pauseButton.hide();
+      },
+      onError: function (event) {
+        $().toastmessage('showToast', {
+          text: event.message,
+          type: 'warning',
+          sticky: true
+        });
+      }
+    }
+  };
+
+  function setupPlayer(mountURL, volumeBar, audio_format) {
+    var player = jwplayer();
+
+    if (player) {
+      player.stop();
+    }
+
+    playerConfig.modes[0].config.file = mountURL;
+    playerConfig.modes[1].config.file = mountURL + "?type=.flv";
+
+    playerConfig.volume = volumeBar.getValue();
+
+    console.log(playerConfig);
+    jwplayer('player_box').setup(playerConfig);
+  }
+
+  function toggleVolumePlayer(val) {
+    if (val === 0) {
+      muteButton.hide();
+      unmuteButton.show();
+    } else {
+      muteButton.show();
+      unmuteButton.hide();
+    }
+  }
+
+  var volumeBar = $("#interface_player .jp-volume-bar input");
+
+  //Mobiles use native volume controls
+  if (isMobile) {
+    volumeBar.attr('disabled', 'disabled');
+  }
+  volumeBar = volumeBar.rangeinput({progress: true}).change(function (e, i) {
+    jwplayer().setVolume(i);
+  }).data("rangeinput");
+
+  //Set default volume
+  volumeBar.setValue($.jStorage.get("volume", 100));
+
+  function mutePlayer(state) {
+    jwplayer().setVolume(state);
+    return false;
+  }
+
+  pauseButton.click(function () {
+    jwplayer().pause(true);
+    jwplayer().stop();
+    return false;
+  });
+
+  muteButton.click(function () {
+    return mutePlayer(0);
+  });
+  unmuteButton.click(function () {
+    return mutePlayer(100);
+  });
+
+  var firstStart = true;
+
+//    setInterval("titleTracksUpdate('{% url get_title_tracks %}')", 2000);
+  setTimeout("updateAdvertising()", 2000);
+  setInterval("updateAdvertising()", 30000);
+
+  var stationDOM = $('.station_' + $.jStorage.get("station") + ' .change-link');
+
+  if (window.location.hash) {
+    stationDOM = $(window.location.hash + '_').find('.change-link');
+  }
+
+  //Select active station
+  if (!stationDOM.length) {
+    stationDOM = $('.station .change-link').first();
+  }
+  window.location.hash = stationDOM.attr('href');
+
+//  $(".jCarouselLite").jCarouselLite({
+//    btnNext: ".scroll-right",
+//    btnPrev: ".scroll-left",
+//    mouseWheel: true,
+//    start: stationDOM.closest('li').index(),
+//    visible: true
+//  });
+
+  $('.station .change-link').history(function (event, hash) {
+    var selectedClass = 'selected';
+    $(".station").removeClass(selectedClass);
+    $('.' + $(this).parent('li').attr('id')).addClass(selectedClass);
+    portletPlayer.loadIndicator();
+
+    $.get($(this).attr('rel'), function (data) {
+      portletPlayer.deleteIndicator();
+
+      //Save in local storage current chosen station
+      $.jStorage.set("station", data['station_pk']);
+
+      $('.portlet-player .station').attr('id', "station_" + data['station_pk']);
+      $('.portlet-player .mount_link').text('RADIOSTATION: ' + data['station_title']);
+      $('.portlet-player .station .current-track').text(data['track_title']);
+
+      //Bitrate choice
+      $('.portlet-player .bitrate').html(data['bitrate_choice']);
+
+      var bitrateChoice = $(".portlet-player .bitrate .bitrate-choice");
+      //Handle changing bit rate
+      bitrateChoice.click(function () {
+        $.jStorage.set("bitrate", $(this).attr('id'));
+
+        bitrateChoice.removeClass(selectedClass);
+        $(this).addClass(selectedClass);
+
+        var streamURL = $(this).attr('href');
+        setupPlayer(streamURL, volumeBar, $(this).attr('rel'));
+        if (firstStart && !jwplayer('player_box').getRenderingMode()) {
+          firstStart = false;
+          if (!isMobile && !hasFlash) {
+            $().toastmessage('showToast', {
+              text: 'You do not have flash player.' + " <a href='http://www.adobe.com/go/getflashplayer?promoid=JZEFT' target='_blank'>" + 'Download' + "</a>",
+              type: 'error',
+              sticky: true
+            });
+          }
+        }
+        playButton.attr('href', streamURL);
+
+        return false;
+      });
+
+      //Set active bit rate
+      var currentBitrate = bitrateChoice.filter('#' + $.jStorage.get("bitrate"));
+      if (!currentBitrate.length) {
+        currentBitrate = bitrateChoice.last();
+      }
+
+      //Emulate click on bit rate link
+      currentBitrate.click();
+
+      //Update comments
+      $('.portlet-comments .portletHeader span').text(data['comment_count']);
+
+      var commentFooter = $('.portlet-comments .portletFooter');
+
+      if (data['comment_count']) {
+        commentFooter.show();
+      } else {
+        commentFooter.hide();
+      }
+
+      //Fill short comment list
+      $('.portlet-comments .comment-short').remove();
+      commentFooter.before(data['short_comment_list']);
+
+      //Full comment list
+      $('.detail-comment-list').html(data['comment_list']);
+
+      //Comment form
+      $('.portlet-add-comment.add-comment-form .portletItem').html(data['comment_form']);
+    });
+    return false;
+  });
+
+  /* Comments */
+  var comment_list = $('.detail-comment-list');
+  $('.comment-add-link').click(function () {
+    $().toastmessage('showErrorToast', 'You should log in for commenting.');
+    return false;
+  });
+  $('.view-all-comments').click(function () {
+    comment_list.show();
+    return false;
+  });
+
+  comment_list.mouseleave(function () {
+    $(this).hide();
+    return false;
+  });
+
+});
+</script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+  app.initialize();
+</script>
+</body>
+</html>
