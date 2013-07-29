@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegap.hello-world" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>HelloWorld</name>
+    <name>Radio</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Radio sample application that responds to the deviceready event.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="f.eano.r@mail.ru" href="http://radio.etvnet.com">
+        Feanor
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="permissions" value="none" />
@@ -23,11 +23,13 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
-    <icon src="icon.png" />
-    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
-    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
-    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
-    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />
+
+    <icon src="res/icon/android/Radio_App_icon.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/Radio_App_icon.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/Radio_App_icon_57.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/Radio_App_icon_72.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/Radio_App_icon_114.png" />
+
     <icon gap:platform="blackberry" src="res/icon/blackberry/icon-80.png" />
     <icon gap:platform="blackberry" gap:state="hover" src="res/icon/blackberry/icon-80.png" />
     <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
